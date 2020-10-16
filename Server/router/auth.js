@@ -17,7 +17,7 @@ const Post = mongoose.model("Post");
 
 router.post("/signup", (req, res) => {
   console.log("in signup");
-  const { name, email, password } = req.body;
+  const { name, email, password,pic } = req.body;
   if (!email || !password || !name) {
     return res.status(422).json({ error: "please add all the fields" });
   }
@@ -34,6 +34,7 @@ router.post("/signup", (req, res) => {
           email,
           password: hashedpassword,
           name,
+          pic
         });
 
         user
@@ -71,8 +72,8 @@ router.post("/signin", (req, res) => {
       .then((domatch) => {
         if (domatch) {
           const token = jwt.sign({ _id: savedUser._id }, JWT_SECRET);
-          const { _id, name, email } = savedUser;
-          res.json({ token, _id, name, email });
+          const { _id, name, email,pic } = savedUser;
+          res.json({ token, _id, name, email,pic });
           //res.json({ message: "Successfully Signed in" });
         } else {
           return res.status(422).json({ error: "Invalid Id or Password" });

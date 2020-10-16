@@ -19,6 +19,8 @@ require("./models/post");
 app.use(express.json());
 app.use(require("./router/auth"));
 app.use(require("./router/post"));
+app.use(require("./router/user"));
+
 
 app.listen(Port, () => {
   console.log("server is running", Port);
